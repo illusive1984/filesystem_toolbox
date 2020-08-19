@@ -217,18 +217,21 @@ class FileSystem:
     def __init__(self):
         self.partitions = []
         self.update_part_infos()
+        self.current_mp = None
 
     def update_part_infos(self):
+        _idx = 0
         for p in psutil.disk_partitions():
             if 'squashfs' in p.fstype:
                 continue
             self.partitions.append({
+                'part_idx': _idx,
                 'mountpoint': p.mountpoint,
                 'fs_type': p.fstype,
                 'disk_usage': '{} %'.format(psutil.disk_usage(p.mountpoint).percent),
                 'device_name': p.device
-            }
-            )
+            })
+            _idx += 1
 
     def get_part_info(self):
         return self.partitions
@@ -273,7 +276,6 @@ def main():
 
 
 if __name__ == '__main__':
-
     args = get_args()
     log = Logger(level=args.debug_level)
     FS = FileSystem()
