@@ -3,6 +3,6 @@
 in progress...
 
 ## Installation
-copy script some on you ubuntu/debian instance and make it executable with
+copy script on your ubuntu/debian instance and make it executable with
 
     chmod +x someone.py 
